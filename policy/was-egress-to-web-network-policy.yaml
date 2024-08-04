@@ -1,0 +1,19 @@
+# was-egress-to-web-network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-was-to-web
+  namespace: was
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: web
+    ports:
+    - protocol: TCP
+      port: 8080
+

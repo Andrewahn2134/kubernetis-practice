@@ -1,0 +1,19 @@
+# was-ingress-from-web-network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-was-from-web
+  namespace: was
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: web
+    ports:
+    - protocol: TCP
+      port: 8080
+

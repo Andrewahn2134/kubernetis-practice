@@ -1,0 +1,19 @@
+# was-egress-to-db-network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-was-to-db
+  namespace: was
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: db
+    ports:
+    - protocol: TCP
+      port: 3306
+

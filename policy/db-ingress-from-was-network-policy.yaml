@@ -1,0 +1,19 @@
+# db-ingress-from-was-network-policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-db-from-was
+  namespace: db
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: was
+    ports:
+    - protocol: TCP
+      port: 3306
+
